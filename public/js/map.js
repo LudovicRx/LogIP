@@ -1,5 +1,8 @@
 var mymap;
 
+/**
+ * Creates the map
+ */
 function createMap() {
     mymap = L.map('mapid').setView([51.505, -0.09], 13);
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -13,7 +16,10 @@ function createMap() {
     mymap.fitWorld();
 }
 
-
+/**
+ * Draw the markers thanks to the locations
+ * @param {array} locations array with all the locations
+ */
 function drawMarkers(locations) {
     for (let i = 0; i < locations.length; i++) {
         var marker = L.marker([locations[i].latlng.lat, locations[i].latlng.lng]);
