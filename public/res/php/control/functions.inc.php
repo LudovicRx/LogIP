@@ -78,18 +78,24 @@ function getDateLine($entry)
  */
 function getLocationFromIp($ip)
 {
+    $answer = false;
     $url = "http://ipinfo.io/$ip?token=97ed47091800bb";
     $json = file_get_contents($url);
-    $content = json_decode($json, true);
+
     $city = "";
     $location = array("", "");
+    if ($json) {
+        $content = json_decode($json, true);
 
-    if (count($content) > 2) {
-        $city = $content["city"];
-        $location = explode(",", $content["loc"]);
+        if ($content && count($content) > 2) {
+            $city = $content["city"];
+            $location = explode(",", $content["loc"]);
+            $answer = array("city" => $city, "latlng" => array("lat" => $location[0], "lng" => $location[1]));
+        }
     }
-    
-    return array("city" => $city, "latlng" => array("lat" => $location[0], "lng" => $location[1]));
+
+
+    return $answer;
 }
 
 /**
@@ -101,9 +107,16 @@ function getLocationFromIp($ip)
 function formatData($parsedFile)
 {
     $result = array();
-    foreach ($parsedFile as $key => $entry) {
+    foreach ($parsedFile as $entry) {
         $ip =  getIpLine($entry);
-        array_push($result, array_merge(array("date" => getDateLine($entry), "ip" => $ip), getLocationFromIp($ip)));
+        // Si l'ip est valide
+        if ($ip) {
+            $location = getLocationFromIp($ip);
+            // Si la location est valide
+            if ($location) {
+                array_push($result, array_merge(array("date" => getDateLine($entry), "ip" => $ip), $location));
+            }
+        }
     }
     return $result;
 }

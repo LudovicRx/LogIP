@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <?php
 require_once(__DIR__ . DIRECTORY_SEPARATOR . "res" . DIRECTORY_SEPARATOR . "php" . DIRECTORY_SEPARATOR . "app.inc.php");
-$formattedData = array();
+$formatedData = array();
 
 if (filter_input(INPUT_POST, INPUT_SUBMIT, FILTER_SANITIZE_STRING)) {
     if (isset($_FILES[INPUT_FILE])) {
-        $path = __DIR__ . DIRECTORY_SEPARATOR . "res"  . DIRECTORY_SEPARATOR . "data"  . DIRECTORY_SEPARATOR . "access.log";
-        // $formattedData = formatData(getParsedFile($path));
+        // Vérifie que l'extension est .log
+        if (pathinfo($_FILES[INPUT_FILE]["name"], PATHINFO_EXTENSION) == "log") {
+            $path = __DIR__ . DIRECTORY_SEPARATOR . "res"  . DIRECTORY_SEPARATOR . "data"  . DIRECTORY_SEPARATOR . "access.log";
+            move_uploaded_file($_FILES[INPUT_FILE]["tmp_name"], $path);
+            $formatedData = formatData(getParsedFile($path));
+            var_dump($formatedData);
+        }
     }
 }
 
@@ -32,22 +37,6 @@ if (filter_input(INPUT_POST, INPUT_SUBMIT, FILTER_SANITIZE_STRING)) {
 
     <!-- Favicons -->
     <meta name="theme-color" content="#7952b3">
-
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
 
     <!-- Custom styles for this template -->
     <link href="./res/css/cover.css" rel="stylesheet">
@@ -76,6 +65,8 @@ if (filter_input(INPUT_POST, INPUT_SUBMIT, FILTER_SANITIZE_STRING)) {
             zoomOffset: -1,
             accessToken: 'pk.eyJ1IjoibHVkb3ZpY3J4IiwiYSI6ImNra3BsZ2JoczExcmwyeHJ3a2FmbHhmYWsifQ._-son2TunhXLWn0boYfjhQ'
         }).addTo(mymap);
+
+        L.marker
     </script>
 </body>
 
