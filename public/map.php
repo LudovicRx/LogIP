@@ -10,7 +10,6 @@ if (filter_input(INPUT_POST, INPUT_SUBMIT, FILTER_SANITIZE_STRING)) {
             $path = __DIR__ . DIRECTORY_SEPARATOR . "res"  . DIRECTORY_SEPARATOR . "data"  . DIRECTORY_SEPARATOR . "access.log";
             move_uploaded_file($_FILES[INPUT_FILE]["tmp_name"], $path);
             $formatedData = formatData(getParsedFile($path));
-            var_dump($formatedData);
         }
     }
 }
@@ -55,18 +54,13 @@ if (filter_input(INPUT_POST, INPUT_SUBMIT, FILTER_SANITIZE_STRING)) {
     </div>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script type="text/javascript" src="js/map.js"></script>
     <script>
-        var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            maxZoom: 18,
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1,
-            accessToken: 'pk.eyJ1IjoibHVkb3ZpY3J4IiwiYSI6ImNra3BsZ2JoczExcmwyeHJ3a2FmbHhmYWsifQ._-son2TunhXLWn0boYfjhQ'
-        }).addTo(mymap);
-
-        L.marker
+        createMap();
+        var data = <?= json_encode($formatedData) ?>;
+        if(data.length > 0) {
+            drawMarkers(data);
+        }
     </script>
 </body>
 

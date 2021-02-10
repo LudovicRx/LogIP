@@ -94,7 +94,6 @@ function getLocationFromIp($ip)
         }
     }
 
-
     return $answer;
 }
 
