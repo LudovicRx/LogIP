@@ -89,8 +89,9 @@ function getLocationFromIp($ip)
 
         if ($content && count($content) > 2) {
             $city = $content["city"];
+            $country = $content["country"];
             $location = explode(",", $content["loc"]);
-            $answer = array("city" => $city, "latlng" => array("lat" => $location[0], "lng" => $location[1]));
+            $answer = array("city" => $city, "country" => $country, "latlng" => array("lat" => $location[0], "lng" => $location[1]));
         }
     }
 

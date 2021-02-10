@@ -16,6 +16,9 @@ function createMap() {
 
 function drawMarkers(locations) {
     for (let i = 0; i < locations.length; i++) {
-        L.marker([locations[i].latlng.lat, locations[i].latlng.lng]).addTo(mymap);
+        var marker = L.marker([locations[i].latlng.lat, locations[i].latlng.lng]);
+        marker.riseOnHover = true;
+        marker.bindPopup("<b>Pays :</b> " + locations[i].country + "<br/><b>Ville :</b> " + locations[i].city + "<br/><b>Date :</b> " + locations[i].date + "<br/><b>IP :</b> " + locations[i].ip).openPopup();
+        marker.addTo(mymap);
     }
 }
