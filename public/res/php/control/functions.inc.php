@@ -114,7 +114,12 @@ function formatData($parsedFile)
             $location = getLocationFromIp($ip);
             // Si la location est valide
             if ($location) {
-                array_push($result, array_merge(array("date" => getDateLine($entry), "ip" => $ip), $location));
+                // Ne réécrit pas si l'ip est la même et rajoute 1 dans le count
+                if (array_key_exists($ip, $result)) {
+                    $result[$ip]["count"]++;
+                } else {
+                    $result[$ip] = array_merge(array("count" => 1, "date" => getDateLine($entry)), $location);
+                }
             }
         }
     }

@@ -58,7 +58,7 @@ if (filter_input(INPUT_POST, INPUT_SUBMIT, FILTER_SANITIZE_STRING)) {
     <script>
         createMap();
         var data = <?= json_encode($formatedData) ?>;
-        if(data.length > 0) {
+        if (Object.keys(data).length > 0) {
             drawMarkers(data);
         }
     </script>

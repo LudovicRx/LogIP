@@ -1,4 +1,9 @@
-var mymap;
+// Constantes
+const FIRST_STEP_COLOR = 5;// Premier pas avant la deuxième couleur
+const SECOND_STEP_COLR = 10;// Deuxième pas pour arriver à la troisième couleur 
+
+// Variables
+var mymap;// Map affichée
 
 /**
  * Creates the map
@@ -21,10 +26,20 @@ function createMap() {
  * @param {array} locations array with all the locations
  */
 function drawMarkers(locations) {
-    for (let i = 0; i < locations.length; i++) {
-        var marker = L.marker([locations[i].latlng.lat, locations[i].latlng.lng]);
+    for (key in data) {
+        var marker = L.marker([locations[key].latlng.lat, locations[key].latlng.lng]);
         marker.riseOnHover = true;
-        marker.bindPopup("<b>Pays :</b> " + locations[i].country + "<br/><b>Ville :</b> " + locations[i].city + "<br/><b>Date :</b> " + locations[i].date + "<br/><b>IP :</b> " + locations[i].ip).openPopup();
+        marker.bindPopup("<b>Pays :</b> " + locations[key].country + "<br/><b>Ville :</b> " + locations[key].city + "<br/><b>Date :</b> " + locations[key].date + "<br/><b>IP :</b> " + key).openPopup();
+
+        // Différentes couleur sen fonction du nombre d'occurrence
+        if (locations[key].count <= FIRST_STEP_COLOR) {
+
+        } else if (locations[key].count <= FIRST_STEP_COLOR) {
+
+        } else {
+
+        }
+
         marker.addTo(mymap);
     }
 }
