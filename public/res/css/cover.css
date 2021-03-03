@@ -68,3 +68,15 @@ body {
 .mw-75 {
   max-width:75%;
 }
+
+.iconFirstStep {
+  fill:green;
+}
+
+.iconSecondStep {
+  fill:orange;
+}
+
+.iconThirdSetup {
+  fill:red;
+}
