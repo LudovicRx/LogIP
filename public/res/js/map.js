@@ -1,6 +1,6 @@
 // Constantes
 const FIRST_STEP_COLOR = 1;// Premier pas avant la deuxième couleur
-const SECOND_STEP_COLR = 10;// Deuxième pas pour arriver à la troisième couleur 
+const SECOND_STEP_COLOR = 10;// Deuxième pas pour arriver à la troisième couleur 
 
 // Variables
 var mymap;// Map affichée
@@ -39,7 +39,7 @@ function drawMarkers(locations) {
         // Différentes couleur sen fonction du nombre d'occurrence
         if (locations[key].count <= FIRST_STEP_COLOR) {
             myIcon.options.iconUrl = 'res/img/markerFirstStep.svg';
-        } else if (locations[key].count <= SECOND_STEP_COLR) {
+        } else if (locations[key].count <= SECOND_STEP_COLOR) {
             myIcon.options.iconUrl = 'res/img/markerSecondStep.svg';
         } else {
             myIcon.options.iconUrl = 'res/img/markerThirdStep.svg';
