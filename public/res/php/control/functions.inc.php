@@ -107,19 +107,25 @@ function getLocationFromIp($ip)
 function formatData($parsedFile)
 {
     $result = array();
+    // All the ips that are invalid
+    $invalidIp = array();
     foreach ($parsedFile as $entry) {
         $ip =  getIpLine($entry);
         // Si l'ip est valide
-        if ($ip) {
-            $location = getLocationFromIp($ip);
-            // Si la location est valide
-            if ($location) {
-                // Ne réécrit pas si l'ip est la même et rajoute 1 dans le count
-                if (array_key_exists($ip, $result)) {
-                    $result[$ip]["count"]++;
-                } else {
+        if ($ip && !in_array($ip, $invalidIp)) {
+            // Vérifie que l'ip n'existe pas déjà
+            if (!array_key_exists($ip, $result)) {
+                $location = getLocationFromIp($ip);
+                // Si la location est valide
+                if ($location) {
                     $result[$ip] = array_merge(array("count" => 1, "date" => getDateLine($entry)), $location);
+                } else {
+                    // Rajoute les ip invalides dans le tableau
+                    array_push($invalidIp, $ip);
                 }
+            } else {
+                // Ne réécrit pas si l'ip est la même et rajoute 1 dans le count
+                $result[$ip]["count"]++;
             }
         }
     }
