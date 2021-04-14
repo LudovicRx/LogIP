@@ -4,6 +4,7 @@ Après cela, on affiche sur une map l'emplacement des utilisateurs qui ont fait 
 On utilisera le fichier qui est généralement access.log
 
 Pour tester, il y a un fichier dans public/res/data/access.log
+
 [Adresse du GitHub](https://github.com/LudovicRx/LogIP)
 
 # API utilisées
