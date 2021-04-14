@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <?php
+// Projet    :   Log IP
+// Auteur    :   Ludovic Roux
+// Desc.     :   Page qui affiche la map avec les données de l'access log
+// Version   :   1.0, 14.04.2021, LR, version initiale
+
 require_once(__DIR__ . DIRECTORY_SEPARATOR . "res" . DIRECTORY_SEPARATOR . "php" . DIRECTORY_SEPARATOR . "app.inc.php");
 $formatedData = array();
 

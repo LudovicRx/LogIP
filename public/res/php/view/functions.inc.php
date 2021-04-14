@@ -1,4 +1,8 @@
 <?php
+// Projet    :   Log IP
+// Auteur    :   Ludovic Roux
+// Desc.     :   Fonctions du projet qui concernent la vue
+// Version   :   1.0, 14.04.2021, LR, version initiale
 
 /**
  * Write the class active if this is the active page

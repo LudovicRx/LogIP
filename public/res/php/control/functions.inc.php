@@ -1,4 +1,8 @@
 <?php
+// Projet    :   Log IP
+// Auteur    :   Ludovic Roux
+// Desc.     :   Fonctions fonctionnelles du projets
+// Version   :   1.0, 14.04.2021, LR, version initiale
 
 /**
  * Verify if it is the active page
@@ -43,7 +47,7 @@ function getParsedFile($path)
  */
 function parseLine($line)
 {
-    return explode(" ", $line);;
+    return explode(" ", $line);
 }
 
 /**

@@ -1,3 +1,8 @@
+// Projet    :   Log IP
+// Auteur    :   Ludovic Roux
+// Desc.     :   Fichier qui gère la map
+// Version   :   1.0, 14.04.2021, LR, version initiale
+
 // Constantes
 const FIRST_STEP_COLOR = 1;// Premier pas avant la deuxième couleur
 const SECOND_STEP_COLOR = 10;// Deuxième pas pour arriver à la troisième couleur 

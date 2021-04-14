@@ -2,7 +2,7 @@
 <?php
 // Projet    :   Log IP
 // Auteur    :   Ludovic Roux
-// Desc.     :   Page d'index qui permet de donner un fichier de log
+// Desc.     :   Page qui s'affiche lorsqu'il y a une erreur
 // Version   :   1.0, 14.04.2021, LR, version initiale
 
 require_once(__DIR__ . DIRECTORY_SEPARATOR . "res" . DIRECTORY_SEPARATOR . "php" . DIRECTORY_SEPARATOR . "app.inc.php");
@@ -16,7 +16,6 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . "res" . DIRECTORY_SEPARATOR . "php"
     <title>LogIP</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
-
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -35,13 +34,9 @@ require_once(__DIR__ . DIRECTORY_SEPARATOR . "res" . DIRECTORY_SEPARATOR . "php"
 
         <main class="px-3">
             <h1>Log IP</h1>
-            <p class="lead">Ce site permet de localiser où se situent vos attaques.</p>
-            <p class="lead">Veuillez insérez un fichier access_log, par la suite une map s'affichera pour visualiser d'où viennent les attaques.</p>
+            <p class="lead">Une erreur est survenue ;-;</p>
             <div class="lead">
-                <form action="map.php" method="POST" enctype="multipart/form-data">
-                    <input class="form-control mb-3" type="file" accept=".log" id="formFile" name="<?= INPUT_FILE ?>">
-                    <input class="btn btn-light" type="submit" name="<?= INPUT_SUBMIT ?>" value="Envoyer">
-                </form>
+                <a href="index.php">Appuyez ici pour revenir à la page d'acceuil</a>
             </div>
         </main>
 
