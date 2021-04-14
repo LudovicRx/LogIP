@@ -54,7 +54,7 @@ function parseLine($line)
  * Gets the ip of a line
  *
  * @param array $entry
- * @return string
+ * @return string ip
  */
 function getIpLine($entry)
 {
@@ -65,7 +65,7 @@ function getIpLine($entry)
  * Gets the date of an entry of the file array
  *
  * @param array $entry
- * @return string
+ * @return string date
  */
 function getDateLine($entry)
 {
@@ -75,7 +75,46 @@ function getDateLine($entry)
 }
 
 /**
- * rGets the city, the latitude and the longitude from the ip
+ * Gte the url of an entrey of the file array
+ *
+ * @param array $entry
+ * @return string url 
+ */
+function getUrlLine($entry)
+{
+    if (count($entry) >= 7) {
+        return str_replace("\"", "", $entry[5] . $entry[6] . $entry[7]);
+    }
+}
+
+/**
+ * Get the code of the access of the line array
+ *
+ * @param array $entry
+ * @return string code
+ */
+function getCodeLine($entry)
+{
+    if (count($entry) >= 8) {
+        return $entry[8];
+    }
+}
+
+/**
+ * Get the agent of the parsed line
+ *
+ * @param array $entry
+ * @return string agent that has attacked
+ */
+function getAgentLine($entry)
+{
+    if (count($entry) >= 11) {
+        return str_replace("\"", "", $entry[11]);
+    }
+}
+
+/**
+ * Gets the city, the latitude and the longitude from the ip
  *
  * @param string $ip 
  * @return array latitude and longitud in an array
@@ -122,7 +161,14 @@ function formatData($parsedFile)
                 $location = getLocationFromIp($ip);
                 // Si la location est valide
                 if ($location) {
-                    $result[$ip] = array_merge(array("count" => 1, "date" => getDateLine($entry)), $location);
+                    $result[$ip] = array_merge(
+                        array(
+                        "count" => 1,
+                        "date" => getDateLine($entry),
+                        "url" => getUrlLine($entry),
+                        "code" => getCodeLine($entry),
+                        "agent" => getAgentLine($entry)
+                    ), $location);
                 } else {
                     // Rajoute les ip invalides dans le tableau
                     array_push($invalidIp, $ip);
@@ -130,6 +176,15 @@ function formatData($parsedFile)
             } else {
                 // Ne réécrit pas si l'ip est la même et rajoute 1 dans le count
                 $result[$ip]["count"]++;
+                
+                // On vérifie si c'est une attaque plus récente
+                if(new DateTime(date_create($result[$ip]["date"])) < new DateTime(date_create(getDateLine($entry)))) {
+                    // On remplace les champs concernés
+                    $result[$ip]["date"] = getDateLine($entry);
+                    $result[$ip]["url"] = getUrlLine($entry);
+                    $result[$ip]["code"] = getCodeLine($entry);
+                    $result[$ip]["agent"] = getAgentLine($entry);
+                }
             }
         }
     }

@@ -7,16 +7,22 @@
 
 require_once(__DIR__ . DIRECTORY_SEPARATOR . "res" . DIRECTORY_SEPARATOR . "php" . DIRECTORY_SEPARATOR . "app.inc.php");
 $formatedData = array();
+$error = "";
 
 if (filter_input(INPUT_POST, INPUT_SUBMIT, FILTER_SANITIZE_STRING)) {
     if (isset($_FILES[INPUT_FILE])) {
         // Vérifie que l'extension est .log
-        if (pathinfo($_FILES[INPUT_FILE]["name"], PATHINFO_EXTENSION) == "log") {
+        $extension = pathinfo($_FILES[INPUT_FILE]["name"], PATHINFO_EXTENSION);
+        if ($extension == "log") {
             $path = __DIR__ . DIRECTORY_SEPARATOR . "res"  . DIRECTORY_SEPARATOR . "data"  . DIRECTORY_SEPARATOR . "access.log";
             move_uploaded_file($_FILES[INPUT_FILE]["tmp_name"], $path);
             $formatedData = formatData(getParsedFile($path));
+        } else {
+            $error = "Un fichier de type `$extension` a été téléversé, il faut un fichier de type `log`.";
         }
     }
+} else {
+    $error = "Vous devez importer un fichier de type log pour pouvoir avoir des informations affichées.";
 }
 
 ?>
@@ -61,6 +67,11 @@ if (filter_input(INPUT_POST, INPUT_SUBMIT, FILTER_SANITIZE_STRING)) {
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script type="text/javascript" src="res/js/map.js"></script>
     <script>
+        var error = "<?= $error ?>";
+        if (error.length > 0) {
+            alert(error);
+        }
+
         createMap();
         var data = <?= json_encode($formatedData) ?>;
         if (Object.keys(data).length > 0) {

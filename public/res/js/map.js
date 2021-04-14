@@ -4,7 +4,7 @@
 // Version   :   1.0, 14.04.2021, LR, version initiale
 
 // Constantes
-const FIRST_STEP_COLOR = 1;// Premier pas avant la deuxième couleur
+const FIRST_STEP_COLOR = 5;// Premier pas avant la deuxième couleur
 const SECOND_STEP_COLOR = 10;// Deuxième pas pour arriver à la troisième couleur 
 
 // Variables
@@ -51,9 +51,21 @@ function drawMarkers(locations) {
         }
 
 
-        var marker = L.marker([locations[key].latlng.lat, locations[key].latlng.lng], {icon: myIcon});
+        var marker = L.marker([locations[key].latlng.lat, locations[key].latlng.lng], { icon: myIcon });
+        var textPopup = "<b>Pays :</b> " + locations[key].country +
+            "<br/><b>Ville :</b> " + locations[key].city +
+            "<br/><b>Date :</b> " + locations[key].date +
+            "<br/><b>IP :</b> " + key +
+            "<br/><b>URL :</b> " + locations[key].url +
+            "<br/><b>Code :</b> " + locations[key].code +
+            "<br/><b>Agent :</b> " + locations[key].agent;
+
+        if (locations[key].count > 1) {
+            textPopup += "<br/><b>Nombre d'attaques : </b>" + locations[key].count;
+        }
+
         marker.riseOnHover = true;
-        marker.bindPopup("<b>Pays :</b> " + locations[key].country + "<br/><b>Ville :</b> " + locations[key].city + "<br/><b>Date :</b> " + locations[key].date + "<br/><b>IP :</b> " + key).openPopup();
+        marker.bindPopup(textPopup).openPopup();
 
 
         marker.addTo(mymap);
